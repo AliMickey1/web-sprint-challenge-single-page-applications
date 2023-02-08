@@ -31,17 +31,9 @@ export default function Pizza(props) {
                 <div class="customer-info">
 
                 <form id="pizza-form">
-                    <label for="fname">Customer's First Name:</label>
-                    <input type="text" id="fname" name="firstName" /> <br/>
-                    
-                    <label for="lname">Customer's Last Name:</label>
-                    <input type="text" id="lname" name="lastName" /> <br/>
-                   
-                    <label for="addy">Customer's Address:</label>
-                    <input type="text" id="addy" name="address" /> <br/>
-                    
-                    <label for="cityzip">Customer's City and Zip Code:</label>
-                    <input type="text" id="cityZip" name="cityzip" /> <br/> <br/>          
+                    <label for="cname">Customer's Name:</label>
+                    <input type="text" id="cname" name="cName" /> <br/>
+         
                 {/* </div>          */}
                   <div className="pizza-size">
                       <h2>Choice of Size</h2>
@@ -228,7 +220,7 @@ export default function Pizza(props) {
 
                 </form>
 
-            <div className="special-instructions">
+            <div className="special-text">
                 <h2>Special Instructions</h2>
                 <label for="special instructions">
                     <textarea name="anythingelse" rows="10" cols="100">Anything else you'd like to add?
