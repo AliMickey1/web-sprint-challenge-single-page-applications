@@ -1,25 +1,22 @@
 import React from "react";
 
-export default function Pizza(props) {
+export default function Pizza() {
 
-    const {
-        values,
-        submit,
-        change,
-        disabled,
-        errors
-    } = props
+    // const {
+    //     submit,
+    //     change,
+    // } = props
 
-    const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
-    }
+    // const onSubmit = evt => {
+    //     evt.preventDefault()
+    //     submit()
+    // }
 
-    const onChange = evt => {
-        const { name, value, checked, type } = evt.target
-        const valueToUse = type === 'checkbox' ? checked : value
-        change(name, valueToUse)
-    }
+    // const onChange = evt => {
+    //     const { name, value, checked, type } = evt.target
+    //     const valueToUse = type === 'checkbox' ? checked : value
+    //     change(name, valueToUse)
+    // }
 
 
     return(
@@ -32,10 +29,10 @@ export default function Pizza(props) {
 
                 <form id="pizza-form">
                     <label for="cname">Customer's Name:</label>
-                    <input type="text" id="cname" name="cName" /> <br/>
+                    <input type="text" id="cname" name="cname" /> <br/>
          
                 {/* </div>          */}
-                  <div className="pizza-size">
+                  <div className="pizza-dropdown">
                       <h2>Choice of Size</h2>
                         <h3>Required</h3>
                         <label for="pizza-size">Select your size</label>
