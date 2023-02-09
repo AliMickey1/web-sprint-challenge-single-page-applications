@@ -1,6 +1,6 @@
 describe('Pizza App', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000/pizza')
+        cy.visit('http://localhost:3000/')
     })
 
         it('sanity checks work', () => {
@@ -8,18 +8,20 @@ describe('Pizza App', () => {
             expect(2+2).not.to.equal(5)
         })
 
+        
 
-    it('can type in the name', () => {
-        cy.get('input[name="cName"]')
-        .should('have.value', '')
-        .type('Ali')
-        .should('have.value', 'Ali')
-    })
 })
 
 describe('Checkboxes', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000/pizza')
+    })
+
+    it('can type in the name', () => {
+        cy.get('input[name="cname"]')
+        .should('have.value', '')
+        .type('Ali')
+        .should('have.value', 'Ali')
     })
 
     it("select a topping", () => {
