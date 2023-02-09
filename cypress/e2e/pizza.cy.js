@@ -18,7 +18,7 @@ describe('Checkboxes', () => {
     })
 
     it('can type in the name', () => {
-        cy.get('input[name="cname"]')
+        cy.get('input[name="name-input"]')
         .should('have.value', '')
         .type('Ali')
         .should('have.value', 'Ali')
