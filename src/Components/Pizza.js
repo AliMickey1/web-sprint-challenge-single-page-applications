@@ -1,7 +1,11 @@
-import React from "react";
+import React from 'react';
+
+
+
+
+  
 
 export default function Pizza() {
-
     // const {
     //     submit,
     //     change,
@@ -24,19 +28,21 @@ export default function Pizza() {
 
         <h1>Build your Own Pizza</h1>
         
-           {/* <div class="form">          */}
+ 
                 <div class="customer-info">
 
                 <form id="pizza-form">
-                    <label for="cname">Customer's Name:</label>
-                    <input type="text" id="cname" name="cname" /> <br/>
-         
-                {/* </div>          */}
-                  <div className="pizza-dropdown">
+                    <label for="customerName">Customer's Name:</label>
+                    <input type="text" 
+                    name="cname" 
+                    id="name-input"
+                    />
+
+                  <div className="size-dropdown">
                       <h2>Choice of Size</h2>
                         <h3>Required</h3>
                         <label for="pizza-size">Select your size</label>
-                            <select id="pizza-size" name="size">
+                            <select id="size-dropdown" name="size">
                                 <option value="Small">Small, 10"</option>
                                 <option value="Medium">Medium, 12"</option>
                                 <option value="Large">Large, 14"</option>
@@ -220,7 +226,7 @@ export default function Pizza() {
             <div className="special-text">
                 <h2>Special Instructions</h2>
                 <label for="special instructions">
-                    <textarea name="anythingelse" rows="10" cols="100">Anything else you'd like to add?
+                    <textarea name="special instructions" rows="10" cols="100">Anything else you'd like to add?
                     </textarea>
                 </label>
             </div>
