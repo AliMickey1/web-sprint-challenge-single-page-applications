@@ -57,13 +57,18 @@ const App = () => {
          <p>Order the best pizza you will ever taste!</p>
 
             <li>
-            <Link to ="/pizza"> Order Now!  </Link>
+              {/* <button id="home">
+                <Link to ="/">Home</Link>
+                <Route exact path = "/" component={App}></Route>
+              </button> */}
+              <button id="order-pizza">
+                <Link to ="/pizza"> Order Now!  </Link>
+                <Route path ="/pizza" component={Pizza} />
+            </button>
             </li>
            </nav>
 
 
-
-              <Route path ="/pizza" component={Pizza} />
 
 
       </div>
