@@ -5,22 +5,20 @@ import React from 'react';
 
   
 
-export default function Pizza() {
-    // const {
-    //     submit,
-    //     change,
-    // } = props
+const Pizza = (props) => {
+    const { submit, change } = props;
 
-    // const onSubmit = evt => {
-    //     evt.preventDefault()
-    //     submit()
-    // }
 
-    // const onChange = evt => {
-    //     const { name, value, checked, type } = evt.target
-    //     const valueToUse = type === 'checkbox' ? checked : value
-    //     change(name, valueToUse)
-    // }
+    const onSubmit = evt => {
+        evt.preventDefault()
+        submit()
+    }
+
+    const onChange = evt => {
+        const { name, value, checked, type } = evt.target
+        const valueToUse = type === 'checkbox' ? checked : value
+        change(name, valueToUse)
+    }
 
 
     return(
@@ -34,7 +32,7 @@ export default function Pizza() {
                 <form id="pizza-form">
                     <label for="customerName">Customer's Name:</label>
                     <input type="text" 
-                    name="cname" 
+                    name="name-input" 
                     id="name-input"
                     />
 
@@ -57,7 +55,7 @@ export default function Pizza() {
                         type='radio'
                         name='sauce'
                         value='original'
-                        // onChange={onChange}
+                        onChange={onChange}
                         // checked={values.sauce === 'original'}
                     />
                     </label> 
@@ -67,7 +65,7 @@ export default function Pizza() {
                         type='radio'
                         name='sauce'
                         value='garlicRanch'
-                        // onChange={onChange}
+                        onChange={onChange}
                         // checked={values.sauce === 'garlicRanch'}
                     />
                     </label>
@@ -77,7 +75,7 @@ export default function Pizza() {
                         type='radio'
                         name='sauce'
                         value='bbq'
-                        // onChange={onChange}
+                        onChange={onChange}
                         // checked={values.sauce === 'bbq'}
                     />
                     </label>     
@@ -87,7 +85,7 @@ export default function Pizza() {
                         type='radio'
                         name='sauce'
                         value='spinachAlfredo'
-                        // onChange={onChange}
+                        onChange={onChange}
                         // checked={values.sauce === 'spinachAlfredo'}
                     />
                     </label>
@@ -98,123 +96,138 @@ export default function Pizza() {
 
                     <label>Pepperoni
                         <input
-                        type="checkbox"
-                        name="pepperoni"
-                        // checked=(values.pepperoni)
-                        // onChange={onChange}
+                        type='checkbox'
+                        value='pepperoni'
+                        name='topping'
+                        onChange={onChange}
+                        // checked={values.topping === 'pepperoni'}
+
                         />
                     </label>
 
                         <label>Sausage
                         <input
                         type="checkbox"
-                        name="sausage"
-                        // checked=(values.sausage)
-                        // onChange={onChange}
+                        value="sausage"
+                        name='topping'
+                        // checked={values.topping === 'sausage'}
+                        onChange={onChange}
                         />
                     </label>
 
                         <label>Canadian Bacon
                         <input
                         type="checkbox"
-                        name="canadianbacon"
-                        // checked=(values.canadianbacon)
-                        // onChange={onChange}
+                        value="canadianbacon"
+                        name='topping'
+                        // checked={values.topping === 'canadianbacon'}
+                        onChange={onChange}
                         />
                     </label>
                         <label>Spicy Italian Sausage
                         <input
                         type="checkbox"
-                        name="spicyitalsaus"
-                        // checked=(values.spicyitalsaus)
-                        // onChange={onChange}
+                        value="spicyitalsaus"
+                        name='topping'
+                        // checked={values.topping === 'spicyitalsaus'}
+                        onChange={onChange}
                         />
                     </label>
 
                         <label>Grilled Chicken
                         <input
                         type="checkbox"
-                        name="grilledchix"
-                        // checked=(values.grilledchix)
-                        // onChange={onChange}
+                        value="grilledchix"
+                        name='topping'
+                        // checked={values.topping === 'grilledchix'}
+                        onChange={onChange}
                         />
                     </label>
                     <label>Onions
                         <input
                         type="checkbox"
-                        name="onions"
-                        // checked=(values.onions)
-                        // onChange={onChange}
+                        value="onions"
+                        name='topping'
+                        // checked={values.topping === 'onions'}
+                        onChange={onChange}
                         />
                     </label>
                         <label>Green Peppers
                         <input
                         type="checkbox"
-                        name="greenpeppers"
-                        // checked=(values.greenpeppers)
-                        // onChange={onChange}
+                        value="greenpeppers"
+                        name='topping'
+                        // checked={values.topping === 'greenpeppers'}
+                        onChange={onChange}
                         />
                     </label>
 
                         <label>Diced Tomatoes
                         <input
                         type="checkbox"
-                        name="tomatoes"
-                        // checked=(values.tomatoes)
-                        // onChange={onChange}
+                        value="tomatoes"
+                        name='topping'
+                        // checked={values.topping === 'tomatoes'}
+                        onChange={onChange}
                         />
                     </label>
 
                         <label>Black Olives
                         <input
                         type="checkbox"
-                        name="olives"
-                        // checked=(values.olives)
-                        // onChange={onChange}
+                        topping="olives"
+                        name='topping'
+                        // checked={values.topping === 'olives'}
+                        onChange={onChange}
                         />
                     </label>
 
                         <label>Roasted Garlic
                         <input
                         type="checkbox"
-                        name="garlic"
-                        // checked=(values.garlic)
-                        // onChange={onChange}
+                        value="garlic"
+                        name='topping'
+                        // checked={values.topping === 'garlic'}
+                        onChange={onChange}
                         />
                     </label>
 
                         <label>Artichoke Hearts
                         <input
                         type="checkbox"
-                        name="artichoke"
-                        // checked=(values.artichoke)
-                        // onChange={onChange}
+                        value="artichoke"
+                        name='topping'
+                        // checked={values.topping === 'artichoke'}
+                        onChange={onChange}
                         />
                     </label>
                         <label>Three Cheese
                         <input
                         type="checkbox"
-                        name="3cheese"
-                        // checked=(values.3cheese)
-                        // onChange={onChange}
+                        value="3cheese"
+                        name='topping'
+                        // checked={values.topping === '3cheese'}
+                        onChange={onChange}
                         />
                     </label>
 
                         <label>Pineapple
                         <input
                         type="checkbox"
-                        name="pineapple"
-                        // checked=(values.pineapple)
-                        // onChange={onChange}
+                        value="pineapple"
+                        name='topping'
+                        // checked={values.topping === 'pineapple'}
+                        onChange={onChange}
                         />
                     </label>
 
                         <label>Extra Cheese
                         <input
                         type="checkbox"
-                        name="xtracheese"
-                        // checked=(values.xtracheese)
-                        // onChange={onChange}
+                        value="xtracheese"
+                        name='topping'
+                        // checked={values.topping === 'xtracheese'}
+                        onChange={onChange}
                         />
                     </label>
 
@@ -226,8 +239,12 @@ export default function Pizza() {
             <div className="special-text">
                 <h2>Special Instructions</h2>
                 <label for="special instructions">
-                    <textarea name="special instructions" rows="10" cols="100">Anything else you'd like to add?
-                    </textarea>
+                    <textarea name="special instructions" 
+                    rows="10" cols="100"
+                    onChange={onChange}
+                    />
+                        Anything else you'd like to add?
+                    
                 </label>
             </div>
             <button id="order-button">Add to Order</button>
@@ -236,3 +253,4 @@ export default function Pizza() {
     )
 }
 
+export default Pizza;
