@@ -29,10 +29,9 @@ describe('Checkboxes', () => {
         .as('checkboxes')
         .check()
 
-
-    cy.get('@checkboxes')
-    .each(checkbox => {
-      expect(checkbox[0].checked).to.equal(true)
+        cy.get('@checkboxes')
+        .each(checkbox => {
+        expect(checkbox[0].checked).to.equal(true)
     })
 })
 })
