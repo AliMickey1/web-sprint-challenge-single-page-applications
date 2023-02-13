@@ -1,12 +1,7 @@
 import React from 'react';
 
-
-
-
-  
-
 const Pizza = (props) => {
-    const { submit, change } = props;
+    const { submit, change, disabled, errors } = props;
 
 
     const onSubmit = evt => {
@@ -17,7 +12,8 @@ const Pizza = (props) => {
     const onChange = evt => {
         const { name, value, checked, type } = evt.target
         const valueToUse = type === 'checkbox' ? checked : value
-        change(name, valueToUse)
+
+        // change(name, valueToUse)
     }
 
 
@@ -26,7 +22,14 @@ const Pizza = (props) => {
 
         <h1>Build your Own Pizza</h1>
         
- 
+
+
+            {/* <div className='errors'>
+                <div>{errors.pizza-form}</div>
+            </div> */}
+
+
+
                 <div class="customer-info">
 
                 <form id="pizza-form">
@@ -56,7 +59,7 @@ const Pizza = (props) => {
                         name='sauce'
                         value='original'
                         onChange={onChange}
-                        // checked={values.sauce === 'original'}
+                        checked={'sauce' === 'original'}
                     />
                     </label> 
 
@@ -66,7 +69,7 @@ const Pizza = (props) => {
                         name='sauce'
                         value='garlicRanch'
                         onChange={onChange}
-                        // checked={values.sauce === 'garlicRanch'}
+                        checked={'sauce' === 'garlicRanch'}
                     />
                     </label>
 
@@ -76,7 +79,7 @@ const Pizza = (props) => {
                         name='sauce'
                         value='bbq'
                         onChange={onChange}
-                        // checked={values.sauce === 'bbq'}
+                        checked={'sauce' === 'bbq'}
                     />
                     </label>     
                     
@@ -86,7 +89,7 @@ const Pizza = (props) => {
                         name='sauce'
                         value='spinachAlfredo'
                         onChange={onChange}
-                        // checked={values.sauce === 'spinachAlfredo'}
+                        checked={'sauce' === 'spinachAlfredo'}
                     />
                     </label>
                     </div>
@@ -100,7 +103,7 @@ const Pizza = (props) => {
                         value='pepperoni'
                         name='topping'
                         onChange={onChange}
-                        // checked={values.topping === 'pepperoni'}
+                        checked={'topping' === 'pepperoni'}
 
                         />
                     </label>
@@ -110,7 +113,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="sausage"
                         name='topping'
-                        // checked={values.topping === 'sausage'}
+                        checked={'topping' === 'sausage'}
                         onChange={onChange}
                         />
                     </label>
@@ -120,7 +123,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="canadianbacon"
                         name='topping'
-                        // checked={values.topping === 'canadianbacon'}
+                        checked={'topping' === 'canadianbacon'}
                         onChange={onChange}
                         />
                     </label>
@@ -129,7 +132,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="spicyitalsaus"
                         name='topping'
-                        // checked={values.topping === 'spicyitalsaus'}
+                        checked={'topping' === 'spicyitalsaus'}
                         onChange={onChange}
                         />
                     </label>
@@ -139,7 +142,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="grilledchix"
                         name='topping'
-                        // checked={values.topping === 'grilledchix'}
+                        checked={'topping' === 'grilledchix'}
                         onChange={onChange}
                         />
                     </label>
@@ -148,7 +151,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="onions"
                         name='topping'
-                        // checked={values.topping === 'onions'}
+                        checked={'topping' === 'onions'}
                         onChange={onChange}
                         />
                     </label>
@@ -157,7 +160,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="greenpeppers"
                         name='topping'
-                        // checked={values.topping === 'greenpeppers'}
+                        checked={'topping' === 'greenpeppers'}
                         onChange={onChange}
                         />
                     </label>
@@ -167,7 +170,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="tomatoes"
                         name='topping'
-                        // checked={values.topping === 'tomatoes'}
+                        checked={'topping' === 'tomatoes'}
                         onChange={onChange}
                         />
                     </label>
@@ -177,7 +180,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         topping="olives"
                         name='topping'
-                        // checked={values.topping === 'olives'}
+                        checked={'topping' === 'olives'}
                         onChange={onChange}
                         />
                     </label>
@@ -187,7 +190,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="garlic"
                         name='topping'
-                        // checked={values.topping === 'garlic'}
+                        checked={'topping' === 'garlic'}
                         onChange={onChange}
                         />
                     </label>
@@ -197,7 +200,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="artichoke"
                         name='topping'
-                        // checked={values.topping === 'artichoke'}
+                        checked={'topping' === 'artichoke'}
                         onChange={onChange}
                         />
                     </label>
@@ -206,7 +209,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="3cheese"
                         name='topping'
-                        // checked={values.topping === '3cheese'}
+                        checked={'topping' === '3cheese'}
                         onChange={onChange}
                         />
                     </label>
@@ -216,7 +219,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="pineapple"
                         name='topping'
-                        // checked={values.topping === 'pineapple'}
+                        checked={'topping' === 'pineapple'}
                         onChange={onChange}
                         />
                     </label>
@@ -226,7 +229,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="xtracheese"
                         name='topping'
-                        // checked={values.topping === 'xtracheese'}
+                        checked={'topping' === 'xtracheese'}
                         onChange={onChange}
                         />
                     </label>
@@ -238,12 +241,13 @@ const Pizza = (props) => {
 
             <div className="special-text">
                 <h2>Special Instructions</h2>
-                <label for="special instructions">
-                    <textarea name="special instructions" 
+                <h3>Anything else you'd like to add?</h3>
+                <label for="special=text">
+                    <textarea id="special-text" 
                     rows="10" cols="100"
                     onChange={onChange}
                     />
-                        Anything else you'd like to add?
+                        
                     
                 </label>
             </div>
