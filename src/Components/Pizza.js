@@ -105,20 +105,19 @@ const Pizza = () => {
     
 
     
-    const handleChange = (name, value) => {
-      validate(name, value);
+    const handleChange = (evt) => {
+
+        const { name, value } = evt.target
+        yup.reach(formSchema, name)
+        .validate(value)
+        .then((valid) => setFormErrors({ ...formErrors, [name]: '' }))
+        .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
       setFormValues({...formValues, [name]: value});
 
     }
 
-    
-    const validate = (name, value) => {
-        yup.string(formSchema, name)
-        .validate(value)
-        .then(() => setFormErrors({ ...setFormErrors, [name]: '' }))
-        .catch(err => setFormErrors({ ...setFormErrors, [name]: err.errors[0] }))
-      }
-  
+
+ 
 
     useEffect(() => {
         formSchema.isValid(formValues).then(valid => setDisabled(!valid))
