@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
-import App from "./App";
-import Pizza from "./Components/Pizza"
+import Home from "./Home";
+
 
 ReactDOM.render(
 <Router>
-    <App />
+    <Home />
 </Router>
 , document.getElementById("root"));

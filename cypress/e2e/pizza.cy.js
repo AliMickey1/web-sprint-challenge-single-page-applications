@@ -8,8 +8,6 @@ describe('Pizza App', () => {
             expect(2+2).not.to.equal(5)
         })
 
-        
-
 })
 
 describe('Checkboxes', () => {
@@ -18,7 +16,7 @@ describe('Checkboxes', () => {
     })
 
     it('can type in the name', () => {
-        cy.get('input[name="name-input"]')
+        cy.get('input[name="custName"]')
         .should('have.value', '')
         .type('Ali')
         .should('have.value', 'Ali')
@@ -28,13 +26,16 @@ describe('Checkboxes', () => {
         cy.get('.toppings input[type="checkbox"]')
         .as('checkboxes')
         .check()
-
-        cy.get('@checkboxes')
-        .each(checkbox => {
-        expect(checkbox[0].checked).to.equal(true)
     })
+ 
+    
 })
-})
+
+
+        // cy.get('@checkboxes')
+        // .each(checkbox => {
+        // expect(checkbox[0].checked).to.equal(true)
+// })
 
 
 

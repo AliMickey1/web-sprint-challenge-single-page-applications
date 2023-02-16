@@ -1,49 +1,152 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { formSchema } from './Validation/formSchema'
+import * as yup from 'yup';
+import axios from 'axios';
 
-const Pizza = (props) => {
-    const { submit, change, disabled, errors } = props;
 
 
-    const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
+const initialValue = {
+  'custName': '',
+  'size': '',
+  'pizza-sauce': '', 
+  'pepperoni': false,
+  'sausage': false,
+  'canadianbacon': false,
+  'spicyitalsaus': false,
+  'grilledchix': false,
+  'onions': false,
+  'greenpeppers': false,
+  'tomatoes': false,
+  'olives': false,
+  'garlic': false,
+  'artichoke': false,
+  '3cheese': false,
+  'pineapple': false,
+  'xtracheese': false,
+  'special': ''
+  };
+
+
+  const initialFormErrors = {
+    'custName': '',
+    'size-dropdown': '',
+    'pizza-sauce': '', 
+      };
+
+  const initialOrder = []
+  const initialDisabled = true
+ 
+  const handleError = err => { debugger }; 
+
+const Pizza = () => {
+   
+
+   
+    const [formValues, setFormValues] = useState(initialValue);
+    const [formErrors, setFormErrors] = useState(initialFormErrors);
+    const [disabled, setDisabled] = useState(initialDisabled) 
+    const [orders, setOrders] = useState(initialOrder); //returns a database record of name, size, toppings and special instructions
+    const [toppings, setToppings] = useState([])
+    const [isChecked, setIsChecked] = useState(false)
+
+    
+    const formSubmit = evt => {
+        evt.preventDefault();
+
+        console.log("Your order was submitted.");
+        axios
+        .post('https://reqres.in/api/orders', formValues)
+        .then(res => {
+    
+          setOrders([res.data, ...orders] )
+          alert(res.data)
+          console.log(res.data)
+          setFormValues(initialValue)
+        })
+        .catch(handleError)
     }
+    
 
+    //multiple checkboxes
+    const updateCheckStatus = evt => () => {
+        const index = isChecked.indexOf(evt)
+        const allChecked = [...isChecked]
+
+        if(index === -1)
+        {
+            allChecked.push(evt)
+
+        }
+        else{
+            allChecked.splice(index, 1);
+        }
+        setToppings(allChecked)
+        initialOrder(allChecked)
+      }
+
+      const onChangeTopping = (evt) => {
+        updateCheckStatus(evt.target.checked)
+      }
+
+
+    //     const index = formValues.indexOf(evt.target.value);
+        // setToppings(
+        //   toppings.map((topping, currentIndex) =>
+        //     currentIndex === index
+        //       ? { ...topping, checked: !topping.checked }
+        //       : topping
+        //   )
+        // )
+    
+        // or
     const onChange = evt => {
-        const { name, value, checked, type } = evt.target
-        const valueToUse = type === 'checkbox' ? checked : value
+        setIsChecked(!isChecked)
+        }
+    
 
-        // change(name, valueToUse)
+    
+    const handleChange = (name, value) => {
+      validate(name, value);
+      setFormValues({...formValues, [name]: value});
+
     }
 
+    
+    const validate = (name, value) => {
+        yup.string(formSchema, name)
+        .validate(value)
+        .then(() => setFormErrors({ ...setFormErrors, [name]: '' }))
+        .catch(err => setFormErrors({ ...setFormErrors, [name]: err.errors[0] }))
+      }
+  
 
+    useEffect(() => {
+        formSchema.isValid(formValues).then(valid => setDisabled(!valid))
+        }, [formValues])
+    
     return(
 <>
 
         <h1>Build your Own Pizza</h1>
         
-
-
-            {/* <div className='errors'>
-                <div>{errors.pizza-form}</div>
-            </div> */}
-
-
-
                 <div class="customer-info">
 
                 <form id="pizza-form">
                     <label for="customerName">Customer's Name:</label>
                     <input type="text" 
-                    name="name-input" 
+                    name="custName" 
                     id="name-input"
+                    value={orders.custName}
+                    onChange={handleChange}
+                    
                     />
-
+                    { formErrors.custName.length > 2 && <p className='error'>{formErrors.custName}</p>}
                   <div className="size-dropdown">
                       <h2>Choice of Size</h2>
                         <h3>Required</h3>
                         <label for="pizza-size">Select your size</label>
-                            <select id="size-dropdown" name="size">
+                            <select id="size-dropdown" name="size" value={orders.size}>
+                                <option value=''>- Select a size -</option>
                                 <option value="Small">Small, 10"</option>
                                 <option value="Medium">Medium, 12"</option>
                                 <option value="Large">Large, 14"</option>
@@ -51,6 +154,7 @@ const Pizza = (props) => {
                             </select>
                     </div>
               <div className="pizza-sauce">
+
                   <h2>Choice of Sauce</h2>
                             
                         <label>Original Red
@@ -59,7 +163,6 @@ const Pizza = (props) => {
                         name='sauce'
                         value='original'
                         onChange={onChange}
-                        checked={'sauce' === 'original'}
                     />
                     </label> 
 
@@ -69,7 +172,6 @@ const Pizza = (props) => {
                         name='sauce'
                         value='garlicRanch'
                         onChange={onChange}
-                        checked={'sauce' === 'garlicRanch'}
                     />
                     </label>
 
@@ -79,7 +181,6 @@ const Pizza = (props) => {
                         name='sauce'
                         value='bbq'
                         onChange={onChange}
-                        checked={'sauce' === 'bbq'}
                     />
                     </label>     
                     
@@ -89,10 +190,10 @@ const Pizza = (props) => {
                         name='sauce'
                         value='spinachAlfredo'
                         onChange={onChange}
-                        checked={'sauce' === 'spinachAlfredo'}
                     />
                     </label>
                     </div>
+
                 <div className="toppings">
                     <h2>Add Toppings</h2>
                     <h3>Choose up to 10</h3>
@@ -102,8 +203,7 @@ const Pizza = (props) => {
                         type='checkbox'
                         value='pepperoni'
                         name='topping'
-                        onChange={onChange}
-                        checked={'topping' === 'pepperoni'}
+                        onChange={onChangeTopping}
 
                         />
                     </label>
@@ -113,8 +213,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="sausage"
                         name='topping'
-                        checked={'topping' === 'sausage'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -123,8 +222,8 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="canadianbacon"
                         name='topping'
-                        checked={'topping' === 'canadianbacon'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
+                     
                         />
                     </label>
                         <label>Spicy Italian Sausage
@@ -132,8 +231,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="spicyitalsaus"
                         name='topping'
-                        checked={'topping' === 'spicyitalsaus'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -142,8 +240,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="grilledchix"
                         name='topping'
-                        checked={'topping' === 'grilledchix'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
                     <label>Onions
@@ -151,8 +248,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="onions"
                         name='topping'
-                        checked={'topping' === 'onions'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
                         <label>Green Peppers
@@ -160,8 +256,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="greenpeppers"
                         name='topping'
-                        checked={'topping' === 'greenpeppers'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -170,8 +265,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="tomatoes"
                         name='topping'
-                        checked={'topping' === 'tomatoes'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -180,8 +274,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         topping="olives"
                         name='topping'
-                        checked={'topping' === 'olives'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -190,8 +283,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="garlic"
                         name='topping'
-                        checked={'topping' === 'garlic'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -200,8 +292,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="artichoke"
                         name='topping'
-                        checked={'topping' === 'artichoke'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
                         <label>Three Cheese
@@ -209,8 +300,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="3cheese"
                         name='topping'
-                        checked={'topping' === '3cheese'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -219,8 +309,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="pineapple"
                         name='topping'
-                        checked={'topping' === 'pineapple'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -229,8 +318,7 @@ const Pizza = (props) => {
                         type="checkbox"
                         value="xtracheese"
                         name='topping'
-                        checked={'topping' === 'xtracheese'}
-                        onChange={onChange}
+                        onChange={onChangeTopping}
                         />
                     </label>
 
@@ -244,14 +332,15 @@ const Pizza = (props) => {
                 <h3>Anything else you'd like to add?</h3>
                 <label for="special=text">
                     <textarea id="special-text" 
+                    name='special'
                     rows="10" cols="100"
-                    onChange={onChange}
+                    onChange={handleChange}
                     />
                         
                     
                 </label>
             </div>
-            <button id="order-button">Add to Order</button>
+            <button id="order-button" onSubmit={() => formSubmit()}>Add to Order</button>
                 </div>        
        </>            
     )
