@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import Pizza from "./Components/Pizza";
-import Home from "./Home";
+import './App.css'
 
 
 const App = () => {
@@ -14,8 +14,10 @@ const App = () => {
     <div className="App">  
 
       <nav>
-        <h1>Place your order in App</h1>
-          <p>Order by clicking the link</p>
+        <div className="header">
+      <h1>BloomTech Eats</h1>
+          <p>Order the best pizza you will ever taste!</p>
+        </div>
             <div className="nav-links">
             <button id="Home">
                 <Link to ="/">Home</Link>
@@ -25,13 +27,16 @@ const App = () => {
               </button>
 
 
-            <Switch>
-              <Route exact path="/"><Home /></Route>
+            {/* <Switch> */}
+              {/* <Route exact path="/"><Home /></Route> */}
               <Route path="/pizza"><Pizza /></Route>
-            </Switch>
+            {/* </Switch> */}
 
           </div>
       </nav>
+        <div className="imgcontainer">
+          <img className='pizzaImg' src='Assets/Pizza.jpg' alt=''/>
+      </div>
     </div>
   );
   };

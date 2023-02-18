@@ -1,5 +1,34 @@
+* {
+  font-family: 'Gaegu', cursive;
+}
+.header {
+  color: white
+}
+
+form {
+  background-color: cornsilk;
+  padding: 0 24px 0 24px;
+  display: flex;
+  flex-direction: column;
+
+  /* &.submit {
+    flex: 2;
+    align-items: flex-start;
+  } */
+  /* &.inputs {
+    flex: 2;
+  }
+  &.checkboxes {
+    flex: 1;
+  } */
+
+}
+
+
 .App {
   text-align: center;
+  background-color: rgb(82, 19, 0);
+  width: auto;
 }
 
 .App-logo {
@@ -12,6 +41,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 
 .App-header {
   background-color: #282c34;
@@ -28,6 +58,9 @@
   color: #61dafb;
 }
 
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +68,51 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+
+}
+h1, h2, h3, h4 {
+  color: crimson;
+  display: flex;
+  align-items: baseline;
+
+}
+
+label {
+  display: flex;
+  align-content: flex-start;
+  margin-right: 5px;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+button {
+
+  border-radius: 8px;
+  color: white;
+  background-color: orange;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  margin: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+a:link{
+  text-decoration: none;
 }

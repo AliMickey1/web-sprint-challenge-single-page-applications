@@ -28,14 +28,15 @@ describe('Checkboxes', () => {
         .check()
     })
  
+describe('Submit the form', () => {
+    it('can successfully submit', () => {
+      cy.get(`button[id="order-button"]`).click()
+    })
+})
     
 })
 
 
-        // cy.get('@checkboxes')
-        // .each(checkbox => {
-        // expect(checkbox[0].checked).to.equal(true)
-// })
 
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Link, Switch } from "react-router-dom";
-import Pizza from "./Components/Pizza";
-import App from "./App"
+import Pizza from "./Pizza";
+import App from "../App"
 
 function Home() {
 	return (

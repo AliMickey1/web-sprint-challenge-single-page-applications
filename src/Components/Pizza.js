@@ -5,32 +5,32 @@ import axios from 'axios';
 
 
 
-const initialValue = {
-  'custName': '',
-  'size': '',
-  'pizza-sauce': '', 
-  'pepperoni': false,
-  'sausage': false,
-  'canadianbacon': false,
-  'spicyitalsaus': false,
-  'grilledchix': false,
-  'onions': false,
-  'greenpeppers': false,
-  'tomatoes': false,
-  'olives': false,
-  'garlic': false,
-  'artichoke': false,
-  '3cheese': false,
-  'pineapple': false,
-  'xtracheese': false,
-  'special': ''
-  };
+
+const initialValue = {  
+    custName: '',
+    size: '',
+    sauce: '', 
+    pepperoni: false,
+    sausage: false,
+    canadianbacon: false,
+    spicyitalsaus: false,
+    grilledchix: false,
+    onions: false,
+    greenpeppers: false,
+    tomatoes: false,
+    olives: false,
+    garlic: false,
+    artichoke: false,
+    trescheese: false,
+    pineapple: false,
+    xtracheese: false,
+    special: '',
+    }
+
 
 
   const initialFormErrors = {
-    'custName': '',
-    'size-dropdown': '',
-    'pizza-sauce': '', 
+    custName: '',
       };
 
   const initialOrder = []
@@ -42,83 +42,73 @@ const Pizza = () => {
    
 
    
-    const [formValues, setFormValues] = useState(initialValue);
+    const [formValues, setFormValues] = useState({  
+    custName: '',
+    size: '',
+    sauce: '', 
+    pepperoni: false,
+    sausage: false,
+    canadianbacon: false,
+    spicyitalsaus: false,
+    grilledchix: false,
+    onions: false,
+    greenpeppers: false,
+    tomatoes: false,
+    olives: false,
+    garlic: false,
+    artichoke: false,
+    trescheese: false,
+    pineapple: false,
+    xtracheese: false,
+    special: '',
+    })
+
     const [formErrors, setFormErrors] = useState(initialFormErrors);
     const [disabled, setDisabled] = useState(initialDisabled) 
     const [orders, setOrders] = useState(initialOrder); //returns a database record of name, size, toppings and special instructions
-    const [toppings, setToppings] = useState([])
     const [isChecked, setIsChecked] = useState(false)
+
 
     
     const formSubmit = evt => {
         evt.preventDefault();
-
-        console.log("Your order was submitted.");
+        alert('Your pizza is in the works and will be on the way soon.' )
+        alert(formValues)
+       
+        // const form = document.querySelector("form");
+        // const formData = new FormData(form)
         axios
         .post('https://reqres.in/api/orders', formValues)
         .then(res => {
-    
           setOrders([res.data, ...orders] )
-          alert(res.data)
-          console.log(res.data)
+          console.log(orders)
           setFormValues(initialValue)
         })
         .catch(handleError)
-    }
     
-
-    //multiple checkboxes
-    const updateCheckStatus = evt => () => {
-        const index = isChecked.indexOf(evt)
-        const allChecked = [...isChecked]
-
-        if(index === -1)
-        {
-            allChecked.push(evt)
-
-        }
-        else{
-            allChecked.splice(index, 1);
-        }
-        setToppings(allChecked)
-        initialOrder(allChecked)
-      }
-
-      const onChangeTopping = (evt) => {
-        updateCheckStatus(evt.target.checked)
-      }
-
-
-    //     const index = formValues.indexOf(evt.target.value);
-        // setToppings(
-        //   toppings.map((topping, currentIndex) =>
-        //     currentIndex === index
-        //       ? { ...topping, checked: !topping.checked }
-        //       : topping
-        //   )
-        // )
-    
-        // or
-    const onChange = evt => {
-        setIsChecked(!isChecked)
-        }
-    
-
-    
-    const handleChange = (evt) => {
-
-        const { name, value } = evt.target
-        yup.reach(formSchema, name)
-        .validate(value)
-        .then((valid) => setFormErrors({ ...formErrors, [name]: '' }))
-        .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
-      setFormValues({...formValues, [name]: value});
-
     }
 
 
- 
+    const onChange = event => {
+             const { value, name } = event.target;
+            yup.reach(formSchema, name)
+            .validate(value)
+            .then((valid) => setFormErrors({ ...formErrors, [name]: '' }))
+            .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
 
+            setFormValues({ ...formValues, [name]: value });
+          };
+    
+      const onChangeTopping = evt => {
+        const { checked, value, name, type } = evt.target;
+        const isCheckbox = type === "checkbox" ? checked : value
+        setFormValues({...formValues, [name]: isCheckbox});
+        setIsChecked(checked)
+    }
+    const onChangeSpecial = event => {
+        const { value, name } = event.target;
+       setFormValues({ ...formValues, [name]: value });
+     };
     useEffect(() => {
         formSchema.isValid(formValues).then(valid => setDisabled(!valid))
         }, [formValues])
@@ -126,31 +116,37 @@ const Pizza = () => {
     return(
 <>
 
-        <h1>Build your Own Pizza</h1>
-        
-                <div class="customer-info">
 
-                <form id="pizza-form">
+        
+                <div class="customer-order">
+
+                <form onSubmit={formSubmit} id="pizza-form">
+                
+                <h1>Build your Own Pizza</h1>
                     <label for="customerName">Customer's Name:</label>
                     <input type="text" 
+                    placeholder='Enter your first and last name'
                     name="custName" 
                     id="name-input"
-                    value={orders.custName}
-                    onChange={handleChange}
-                    
+                    value={formValues.custName}
+                    onChange={onChange}
+                   
                     />
                     { formErrors.custName.length > 2 && <p className='error'>{formErrors.custName}</p>}
+                
                   <div className="size-dropdown">
                       <h2>Choice of Size</h2>
                         <h3>Required</h3>
-                        <label for="pizza-size">Select your size</label>
-                            <select id="size-dropdown" name="size" value={orders.size}>
+                        <label for="pizza-size">Select your size: {""}</label>
+                            <select id="size-dropdown" name="size"  onChange={onChangeSpecial}>
                                 <option value=''>- Select a size -</option>
                                 <option value="Small">Small, 10"</option>
                                 <option value="Medium">Medium, 12"</option>
                                 <option value="Large">Large, 14"</option>
                                 <option value="XL">X-Large, 16"</option>
                             </select>
+
+
                     </div>
               <div className="pizza-sauce">
 
@@ -191,7 +187,7 @@ const Pizza = () => {
                         onChange={onChange}
                     />
                     </label>
-                    </div>
+                </div>
 
                 <div className="toppings">
                     <h2>Add Toppings</h2>
@@ -200,9 +196,10 @@ const Pizza = () => {
                     <label>Pepperoni
                         <input
                         type='checkbox'
-                        value='pepperoni'
+                        value={formValues.pepperoni}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.pepperoni.checked}
 
                         />
                     </label>
@@ -210,52 +207,59 @@ const Pizza = () => {
                         <label>Sausage
                         <input
                         type="checkbox"
-                        value="sausage"
+                        value={formValues.sausage}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.sausage.checked}
                         />
                     </label>
 
                         <label>Canadian Bacon
                         <input
                         type="checkbox"
-                        value="canadianbacon"
+                        value={formValues.canadianbacon}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.canadianbacon.checked}
+    
                      
                         />
                     </label>
                         <label>Spicy Italian Sausage
                         <input
                         type="checkbox"
-                        value="spicyitalsaus"
+                        value={formValues.spicyitalsaus}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.spicyitalsaus.checked}
                         />
                     </label>
 
                         <label>Grilled Chicken
                         <input
                         type="checkbox"
-                        value="grilledchix"
+                        value={formValues.grilledchix}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.grilledchix.checked}
                         />
                     </label>
                     <label>Onions
                         <input
                         type="checkbox"
-                        value="onions"
+                        value={formValues.onions}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.onions.checked}
                         />
                     </label>
                         <label>Green Peppers
                         <input
                         type="checkbox"
-                        value="greenpeppers"
+                        value={formValues.greenpeppers}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.greenpeppers.checked}
                         />
                     </label>
 
@@ -265,84 +269,90 @@ const Pizza = () => {
                         value="tomatoes"
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.tomatoes.checked}
                         />
                     </label>
 
                         <label>Black Olives
                         <input
                         type="checkbox"
-                        topping="olives"
+                        value={formValues.olives}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.olives.checked}
                         />
                     </label>
 
                         <label>Roasted Garlic
                         <input
                         type="checkbox"
-                        value="garlic"
+                        value={formValues.garlic}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.garlic.checked}
                         />
                     </label>
 
                         <label>Artichoke Hearts
                         <input
                         type="checkbox"
-                        value="artichoke"
+                        value={formValues.artichoke}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.artichoke.checked}
                         />
                     </label>
                         <label>Three Cheese
                         <input
                         type="checkbox"
-                        value="3cheese"
+                        value={formValues.trescheese}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.trescheese.checked}
                         />
                     </label>
 
                         <label>Pineapple
                         <input
                         type="checkbox"
-                        value="pineapple"
+                        value={formValues.pineapple}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.pineapple.checked}
                         />
                     </label>
 
                         <label>Extra Cheese
                         <input
                         type="checkbox"
-                        value="xtracheese"
+                        value={formValues.xtracheese}
                         name='topping'
                         onChange={onChangeTopping}
+                        checked={formValues.xtracheese.checked}
                         />
                     </label>
-
-
                 </div>
-
-                </form>
 
             <div className="special-text">
                 <h2>Special Instructions</h2>
-                <h3>Anything else you'd like to add?</h3>
-                <label for="special=text">
-                    <textarea id="special-text" 
-                    name='special'
-                    rows="10" cols="100"
-                    onChange={handleChange}
+                    <label>Anything else you'd like to add?</label>
+                    <input type="text" 
+                    placeholder='Optional'
+                    name="special" 
+                    id="special-text"
+                    // value={
+                    onChange={onChangeSpecial}
                     />
-                        
-                    
-                </label>
+
             </div>
             <button id="order-button" onSubmit={() => formSubmit()}>Add to Order</button>
-                </div>        
+    
+    </form>  
+    </div>  
        </>            
     )
 }
 
 export default Pizza;
+
+
