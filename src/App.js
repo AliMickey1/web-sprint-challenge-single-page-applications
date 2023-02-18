@@ -7,8 +7,6 @@ import './App.css'
 const App = () => {
 
 
-
-
   return (
 
     <div className="App">  
@@ -19,24 +17,21 @@ const App = () => {
           <p>Order the best pizza you will ever taste!</p>
         </div>
             <div className="nav-links">
-            <button id="Home">
+
                 <Link to ="/">Home</Link>
-              </button>
-              <button id="order-pizza">
-                <Link to ="/pizza">Order Pizza</Link>
-              </button>
 
 
-            {/* <Switch> */}
-              {/* <Route exact path="/"><Home /></Route> */}
+                <Link id="order-pizza" to ="/pizza">Order Pizza</Link>
+
+
+
+            <Switch>
               <Route path="/pizza"><Pizza /></Route>
-            {/* </Switch> */}
+            </Switch>
 
           </div>
       </nav>
-        <div className="imgcontainer">
-          <img className='pizzaImg' src='Assets/Pizza.jpg' alt=''/>
-      </div>
+
     </div>
   );
   };
